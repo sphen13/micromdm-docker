@@ -67,7 +67,7 @@ if [[ ${DEBUG} ]]; then
     -http-debug"
 fi
 
-echo "$runMicroMDM"
+#echo "$runMicroMDM"
 
 #run
 eval $runMicroMDM
