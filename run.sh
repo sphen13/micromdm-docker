@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # we are going to require the following ENV variables:
 #   APNS_PASSWORD
 #   SERVER_URL
@@ -17,15 +16,14 @@
 
 # Set Environmental VARS.
 
-
-APNS_CERT=${APNS_CERT:'/certs/mdm_push_cert.pem'}
-APNS_PASSWORD=${APNS_PASSWORD}
-APNS_KEY=${APNS_KEY:'/certs/ProviderPrivateKey.key'}
-TLS_CERT=${TLS_CERT:'/certs/tls.pem'}
-TLS_KEY=${TLS_KEY:'/certs/tls.key'}
-FILE_REPO=${REPO:'/repo'}
-CONFIG_PATH=${CONFIG_PATH:'/config'}
-SERVER_URL=${SERVER_URL}
+APNS_CERT="${APNS_CERT:-'/certs/mdm_push_cert.pem'}"
+APNS_PASSWORD="${APNS_PASSWORD}"
+APNS_KEY="${APNS_KEY:-'/certs/ProviderPrivateKey.key'}"
+TLS_CERT="${TLS_CERT:-'/certs/tls.pem'}"
+TLS_KEY="${TLS_KEY:-'/certs/tls.key'}"
+FILE_REPO="${REPO:-'/repo'}"
+CONFIG_PATH="${CONFIG_PATH:-'/config'}"
+SERVER_URL="${SERVER_URL}"
 
 # Perform Quick Check.
 
@@ -58,7 +56,7 @@ if [[ ${API_KEY} ]]; then
 fi
 
 # process TLS settings
-if [[ ${TLS} = true ]]; then
+if [[ ${TLS} == true ]]; then
   if [[ ! -z "${TLS_CERT}" && ! -z ${TLS_KEY} && -e "${TLS_CERT}" && -e "${TLS_KEY}" ]]; then
     runMicroMDM="${runMicroMDM} \
       -tls-cert '${TLS_CERT}' \
