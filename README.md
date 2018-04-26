@@ -4,13 +4,13 @@ Simple docker container for [MicroMDM][1].  MicroMDM is simple to run, as it is 
 
 There are at least 2 folders you would want to map into the container (or use a data container for).  You can easily migrate from a dedicated instance to a dockerized version by pointing the container to your pre-existing folders.
 
-For the `/certs` folder we expect:
+For the certificates we use defaults of :
 ```
 /certs
-  mdm_push_cert.pem
-  ProviderPrivateKey.key
+  /certs/mdm_push_cert.pem
+  /certs/ProviderPrivateKey.key
 ```
-Rename your APNS files to match above when passing through to the container.  This folder also will contain your own TLS cert and key file if you opt to use one.  The `TLS_CERT` and `TLS_KEY` environment variable should match the name of the file(s) that you places in the `/certs` folder.
+Use this folder also will contain your own TLS cert and key file if you opt to use one.  The `TLS_CERT` and `TLS_KEY` environment variable should match the name of the file(s) that you places in the `/certs` folder.
 
 You can see the logs of the running container by using `docker logs` for example:
 ```
