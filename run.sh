@@ -1,8 +1,6 @@
 #!/bin/sh
 
-# we are going to assume that the following is true:
-#   APNS_CERT = mdm_push_cert.pem
-#   APNS_KEY = ProviderPrivateKey.key
+
 # we are going to require the following ENV variables:
 #   APNS_PASSWORD
 #   SERVER_URL
@@ -17,17 +15,22 @@
 #   /certs
 #   /repo
 
-# peform quick checks:
-if [[ ! -e /certs/mdm_push_cert.pem ]]; then
+# Set Environmental VARS.
+
+
+APNS_CERT=${APNS_CERT:'/certs/mdm_push_cert.pem'}
+APNS_PASSWORD=${APNS_PASSWORD}
+APNS_KEY=${APNS_KEY:'/certs/ProviderPrivateKey.key'}
+TLS_CERT=${TLS_CERT:'/certs/tls.pem'}
+TLS_KEY=${TLS_KEY:'/certs/tls.key'}
+FILE_REPO=${REPO:'/repo'}
+CONFIG_PATH=${CONFIG_PATH:'/config'}
+SERVER_URL=${SERVER_URL}
+
+# Perform Quick Check.
+
+if [[ ! -e "${APNS_CERT}" ]]; then
   echo "Please map a valid '/certs/mdm_push_cert.pem' to the container."
-  exit 1
-fi
-if [[ ! -e /certs/ProviderPrivateKey.key ]]; then
-  echo "Please map a valid '/certs/ProviderPrivateKey.key' to the container."
-  exit 1
-fi
-if [[ -z ${APNS_PASSWORD} ]]; then
-  echo "Please set the 'APNS_PASSWORD' environment variable."
   exit 1
 fi
 if [[ -z ${SERVER_URL} ]]; then
@@ -36,12 +39,17 @@ if [[ -z ${SERVER_URL} ]]; then
 fi
 
 runMicroMDM="micromdm serve \
-  -apns-cert /certs/mdm_push_cert.pem \
-  -apns-key /certs/ProviderPrivateKey.key \
-  -apns-password='${APNS_PASSWORD}' \
-  -server-url='${SERVER_URL}' \
-  -filerepo /repo \
-  -config-path /config"
+  -apns-cert ${APNS_CERT} \
+  -apns-key ${APNS_KEY} \
+  -server-url ${SERVER_URL} \
+  -filerepo ${FILE_REPO} \
+  -config-path $CONFIG_PATH"
+
+# APNS Password is not required if using a P12 cert so making this optional
+if [[ ${APNS_PASSWORD} ]]; then
+  runMicroMDM="${runMicroMDM} \
+    -apns-password ${APNS_PASSWORD}"
+fi
 
 # add api key if specified
 if [[ ${API_KEY} ]]; then
@@ -51,10 +59,10 @@ fi
 
 # process TLS settings
 if [[ ${TLS} = true ]]; then
-  if [[ ! -z ${TLS_CERT} && ! -z ${TLS_KEY} && -e "/certs/${TLS_CERT}" && -e "/certs/${TLS_KEY}" ]]; then
+  if [[ ! -z "${TLS_CERT}" && ! -z ${TLS_KEY} && -e "${TLS_CERT}" && -e "${TLS_KEY}" ]]; then
     runMicroMDM="${runMicroMDM} \
-      -tls-cert '/certs/${TLS_CERT}' \
-      -tls-key '/certs/${TLS_KEY}'"
+      -tls-cert '${TLS_CERT}' \
+      -tls-key '${TLS_KEY}'"
   fi
 else
   runMicroMDM="${runMicroMDM} \
@@ -70,4 +78,4 @@ fi
 #echo "$runMicroMDM"
 
 #run
-eval $runMicroMDM
+eval "${runMicroMDM}"
