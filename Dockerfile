@@ -1,9 +1,18 @@
-FROM micromdm/micromdm:1.2.0-5-ge3348a9
+FROM alpine:3.3
+
+ENV MICROMDM_VERSION=1.3.1
 
 COPY run.sh /run.sh
 
-RUN mkdir /config /certs /repo && \
-  chmod +x /run.sh
+RUN apk --no-cache add curl && \
+    curl -L https://github.com/micromdm/micromdm/releases/download/v${MICROMDM_VERSION}/micromdm_v${MICROMDM_VERSION}.zip -o /micromdm.zip && \
+    unzip /micromdm.zip && \
+    mv /build/linux/micromdm / && \
+    rm -r /build && \
+    chmod a+x /micromdm && \
+    apk del curl && \
+    mkdir /config /certs /repo && \
+    chmod a+x /run.sh
 
 EXPOSE 80 443 8080
 
