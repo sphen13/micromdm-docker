@@ -17,6 +17,16 @@ You can see the logs of the running container by using `docker logs` for example
 docker logs micromdm
 ```
 
+### Supported tags
+
+- `latest`
+  - Latest release
+- `pre-release`
+  - Latest pre-release
+- `1.2.0`
+- `1.3.0`
+- `1.3.1`
+
 ### Example Usage
 
 ```
