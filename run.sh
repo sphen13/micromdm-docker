@@ -50,8 +50,8 @@ if [[ ${API_KEY} ]]; then
 fi
 
 # process TLS settings
-if [[ ${TLS} = true ]]; then
-  if [[ ! -z ${TLS_CERT} && ! -z ${TLS_KEY} && -e "/certs/${TLS_CERT}" && -e "/certs/${TLS_KEY}" ]]; then
+if [[ ${TLS} ]]; then
+  if [[ ${TLS_CERT} ]] && [[ ${TLS_KEY} ]] && [[ -f "/certs/${TLS_CERT}" ]] && [[ -f "/certs/${TLS_KEY}" ]]; then
     runMicroMDM="${runMicroMDM} \
       -tls-cert '/certs/${TLS_CERT}' \
       -tls-key '/certs/${TLS_KEY}'"
