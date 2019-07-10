@@ -18,27 +18,12 @@
 #   /repo
 
 # peform quick checks:
-if [[ ! -e /certs/mdm_push_cert.pem ]]; then
-  echo "Please map a valid '/certs/mdm_push_cert.pem' to the container."
-  exit 1
-fi
-if [[ ! -e /certs/ProviderPrivateKey.key ]]; then
-  echo "Please map a valid '/certs/ProviderPrivateKey.key' to the container."
-  exit 1
-fi
-if [[ -z ${APNS_PASSWORD} ]]; then
-  echo "Please set the 'APNS_PASSWORD' environment variable."
-  exit 1
-fi
 if [[ -z ${SERVER_URL} ]]; then
   echo "Please set the 'SERVER_URL' environment variable."
   exit 1
 fi
 
 runMicroMDM="micromdm serve \
-  -apns-cert /certs/mdm_push_cert.pem \
-  -apns-key /certs/ProviderPrivateKey.key \
-  -apns-password='${APNS_PASSWORD}' \
   -server-url='${SERVER_URL}' \
   -filerepo /repo \
   -config-path /config"
