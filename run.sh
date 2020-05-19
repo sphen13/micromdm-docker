@@ -46,6 +46,12 @@ else
     -tls=false"
 fi
 
+# process webhook
+if [[ ${COMMAND_WEBHOOK_URL} ]]; then
+  runMicroMDM="${runMicroMDM} \
+    -command-webhook-url ${COMMAND_WEBHOOK_URL}"
+fi
+
 # process debugging
 if [[ ${DEBUG} ]]; then
   runMicroMDM="${runMicroMDM} \

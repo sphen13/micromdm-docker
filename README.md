@@ -34,6 +34,7 @@ docker run -d --restart always --name micromdm \
   -e TLS_CERT=micromdm.acme.com.crt \
   -e TLS_KEY=micromdm.acme.com.key \
   -e TLS=true \
+  -e COMMAND_WEBHOOK_URL=https://your-webhook-server-url \
   -v /root/certs:/certs \
   -v /root/micromdm:/config \
   -v /root/mdmrepo:/repo \
@@ -52,6 +53,7 @@ SERVER_URL | Public HTTPS url of your server
 TLS | Set to `true` to enable HTTPS (Defaults to False)
 TLS_CERT | TLS certificate file name (within mapped /certs directory)
 TLS_KEY |TLS private key file name (within mapped /certs directory)
+COMMAND_WEBHOOK_URL | An server URL that receives webhook from MicroMDM server (Optional)
 
 ### Mapped Volumes
 
