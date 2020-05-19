@@ -50,6 +50,7 @@ Variable | Description
 API_KEY | Define your API key (Optional)
 DEBUG | Set to `true` to enable `-http_debug`
 SERVER_URL | Public HTTPS url of your server
+COMMAND_WEBHOOK_URL | URL to send command responses (Optional)
 TLS | Set to `true` to enable HTTPS (Defaults to False)
 TLS_CERT | TLS certificate file name (within mapped /certs directory)
 TLS_KEY |TLS private key file name (within mapped /certs directory)
