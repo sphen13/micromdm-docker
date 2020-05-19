@@ -53,7 +53,6 @@ SERVER_URL | Public HTTPS url of your server
 TLS | Set to `true` to enable HTTPS (Defaults to False)
 TLS_CERT | TLS certificate file name (within mapped /certs directory)
 TLS_KEY |TLS private key file name (within mapped /certs directory)
-COMMAND_WEBHOOK_URL | An server URL that receives webhook from MicroMDM server (Optional)
 
 ### Mapped Volumes
 
