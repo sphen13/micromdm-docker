@@ -25,6 +25,7 @@ docker logs micromdm
 - `1.5.0`
 - `1.6.0`
 - `1.7.0-alpha`
+- `1.7.1`
 
 ### Example Usage
 
