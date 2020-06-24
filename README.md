@@ -24,6 +24,8 @@ docker logs micromdm
 - `1.4.0`
 - `1.5.0`
 - `1.6.0`
+- `1.7.0-alpha`
+- `1.7.1`
 
 ### Example Usage
 
@@ -54,6 +56,10 @@ COMMAND_WEBHOOK_URL | URL to send command responses (Optional)
 TLS | Set to `true` to enable HTTPS (Defaults to False)
 TLS_CERT | TLS certificate file name (within mapped /certs directory)
 TLS_KEY |TLS private key file name (within mapped /certs directory)
+NO_COMMAND_HISTORY | disables saving of command history (Boolean)
+USE_DYNAMIC_CHALLENGE | require dynamic SCEP challenges (Boolean)
+GEN_DYNAMIC_CHALLENGE | generate dynamic SCEP challenges in enrollment profile (built-in only) (Boolean)
+
 
 ### Mapped Volumes
 
